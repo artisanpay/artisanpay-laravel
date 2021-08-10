@@ -1,7 +1,7 @@
 <?php
 namespace Artisanpay\Dto;
 
-final class PaymentResponse
+final class ChargeResponse
 {
     private  string $id;
     private string $message;

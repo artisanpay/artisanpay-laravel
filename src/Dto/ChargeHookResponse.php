@@ -1,6 +1,6 @@
 <?php
 
-final class PaymentHookResponse{
+final class ChargeHookResponse{
     private string $status;
     private string $operatorMessage;
     private string $id;

@@ -4,6 +4,7 @@ namespace Artisanpay;
 
 use Artisanpay\Contracts\ChargeContract;
 use Artisanpay\Dto\ChargeRequest;
+use Artisanpay\Dto\ChargeResponse;
 use Artisanpay\Dto\Payment;
 use Artisanpay\Dto\PaymentResponse;
 use Artisanpay\Exceptions\InvalidTokenException;
@@ -21,7 +22,7 @@ final class ArtisanpayCharge implements ChargeContract
      * @param Payment $chargeRequest
      * @return PaymentResponse
      */
-    public function charge(ChargeRequest $chargeRequest): PaymentResponse
+    public function charge(ChargeRequest $chargeRequest): ChargeResponse
     {
         $response = Http::withToken( config('artisanpay.token') )->asJson()
                         ->post(config('artisanpay.base_url') .'/payments', [

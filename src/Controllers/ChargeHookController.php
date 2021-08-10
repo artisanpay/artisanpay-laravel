@@ -1,9 +1,9 @@
 <?php
 namespace Artisanpay\Controllers;
 
-use PaymentHookResponse;
 use Illuminate\Http\Request;
 use Artisanpay\Controllers\Controller;
+use ChargeHookResponse;
 
 class ChargeHookController extends Controller
 {
@@ -15,7 +15,7 @@ class ChargeHookController extends Controller
             'operator_message' => 'required'
         ]);
         $job = config('artisanpay.dispatcher');
-        $data = new PaymentHookResponse($request->status, $request->operator_message, $request->id);
+        $data = new ChargeHookResponse($request->status, $request->operator_message, $request->id);
         dispatch( new $job( $data ));
     }
 }
