@@ -14,11 +14,95 @@ You can install the package via composer:
 composer require artisanpay/artisanpay-laravel
 ```
 
+Install package
+
+```bash
+php artisan artisanpay:install 
+```
+
+Add artisanpay api token in config file 
+
+Generate Job to handle payment
+
+```bash
+php artisan make:job ArtisanpayHookHandleJob
+```
+Add Job to config file in dispatcher section 
+
 ## Usage
 
+Create payment
+
+
 ```php
-// Usage description here
+$data = $request->validate([
+            'phone'     => 'required',
+            'amount'    => 'required',
+            'operator'  => 'required'
+        ]);
+
+        try{
+            $response = Artisanpay::charge( (new ChargeRequest($request->phone, $request->amount, $request->operator)) );
+            Payment::create($data);
+
+        }catch(Exception $exception){
+
+        }
 ```
+
+Job To handle payment hook
+
+```php
+<?php
+
+namespace App\Jobs;
+
+use ChargeHookResponse;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+
+class ArtisanpayHookChargeJob implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    /**
+     * Create a new job instance.
+     * @param  ChargeHookResponse $name
+     * @return void
+     */
+    public function __construct(private ChargeHookResponse $chargeHookResponse)
+    {
+        //
+    }
+
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+       match($this->chargeHookResponse->getStatus()){
+            'success'   => $this->proccessSuccess(),
+            'failed'    => $this->proccessFailed(),
+       };
+    }
+
+    private function proccessSuccess()
+    {
+
+    }
+
+    private function proccessFailed()
+    {
+
+    }
+}
+```
+
 
 ### Testing
 
@@ -47,6 +131,4 @@ If you discover any security related issues, please email gildastema3@gmail.com 
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-## Laravel Package Boilerplate
 
-This package was generated using the [Laravel Package Boilerplate](https://laravelpackageboilerplate.com).
