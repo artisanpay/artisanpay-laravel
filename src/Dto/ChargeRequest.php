@@ -2,7 +2,7 @@
 
 namespace Artisanpay\Dto;
 
-final class Payment{
+final class ChargeRequest{
 
     /** @var string */
     private string $phone;

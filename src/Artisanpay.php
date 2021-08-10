@@ -4,10 +4,14 @@ namespace Artisanpay;
 
 use Illuminate\Support\Facades\Facade;
 
+
+
 /**
- * @see \Artisanpay\LaravelPayment\Skeleton\SkeletonClass
+ * 
+ * @method static \Artisanpay\Dto\PaymentResponse charge(\Artisanpay\Dto\ChargeRequest $charge)
+ * @see \Artisanpay\Artisanpay
  */
-class ArtisanPayFacade extends Facade
+class ArtisanPay extends Facade
 {
     /**
      * Get the registered name of the component.

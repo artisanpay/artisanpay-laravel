@@ -1,7 +1,7 @@
 <?php
 namespace Artisanpay\Contracts;
 
-use Artisanpay\Dto\Payment;
+use Artisanpay\Dto\ChargeRequest;
 use Artisanpay\Dto\PaymentResponse;
 use Artisanpay\Exceptions\InvalidTokenException;
 
@@ -11,8 +11,8 @@ interface ChargeContract{
      * create Payment
      * 
      * @throws InvalidTokenException
-     * @param Payment $payment
+     * @param  ChargeRequest $chargeRequest
      * @return PaymentResponse
      */
-    public function charge(Payment $payment) : PaymentResponse;
+    public function charge(ChargeRequest $chargeRequest) : PaymentResponse;
 }

@@ -2,6 +2,7 @@
 
 namespace Artisanpay;
 
+use Artisanpay\Commands\InstallCommand;
 use Illuminate\Support\ServiceProvider;
 
 class ArtisanpayServiceProvider extends ServiceProvider
@@ -17,7 +18,13 @@ class ArtisanpayServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('artisanpay.php'),
-            ], 'config');
+            ], 'artisanpay-config');
+        }
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                InstallCommand::class,
+            ]);
         }
     }
 
@@ -31,7 +38,7 @@ class ArtisanpayServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('artisanpay-laravel', function () {
-            return new ArtisanpayPayment();
+            return new ArtisanpayCharge();
         });
     }
 }
