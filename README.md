@@ -1,4 +1,4 @@
-# Very short description of the package
+# Laravel bridge for ArtisanPay
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/artisanpay/artisanpay-laravel.svg?style=flat-square)](https://packagist.org/packages/artisanpay/artisanpay-laravel)
 [![Total Downloads](https://img.shields.io/packagist/dt/artisanpay/artisanpay-laravel.svg?style=flat-square)](https://packagist.org/packages/artisanpay/artisanpay-laravel)
