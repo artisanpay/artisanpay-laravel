@@ -3,9 +3,6 @@
 namespace Artisanpay;
 
 use Illuminate\Support\Facades\Facade;
-
-
-
 /**
  * 
  * @method static \Artisanpay\Dto\PaymentResponse charge(\Artisanpay\Dto\ChargeRequest $charge)
