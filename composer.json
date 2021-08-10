@@ -1,0 +1,57 @@
+{
+    "name": "artisanpay/artisanpay-laravel",
+    "description": "Laravel to make payment in laravel",
+    "keywords": [
+        "artisanpay",
+        "php",
+        "laravel",
+        "mobile money"
+    ],
+    "homepage": "https://github.com/artisanpay/laravel-payment",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Gildas Tema",
+            "email": "gildastema3@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0|^7.0"
+    },
+    "require-dev": {
+        "guzzlehttp/guzzle": "^7.0.1",
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Artisanpay\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Artisanpay\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Artisanpay\\ArtisanpayServiceProvider"
+            ],
+            "aliases": {
+                "LaravelPayment": "Artisanpay\\ArtisanpayFacade"
+            }
+        }
+    }
+}
