@@ -1,4 +1,7 @@
 <?php
+namespace Artisanpay\Dto;
+
+
 
 final class ChargeHookResponse{
     private string $status;

@@ -3,7 +3,7 @@ namespace Artisanpay\Controllers;
 
 use Illuminate\Http\Request;
 use Artisanpay\Controllers\Controller;
-use ChargeHookResponse;
+use Artisanpay\Dto\ChargeHookResponse;
 
 class ChargeHookController extends Controller
 {
