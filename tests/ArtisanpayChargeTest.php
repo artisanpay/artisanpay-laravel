@@ -1,7 +1,9 @@
 <?php
 namespace Artisanpay\Tests;
 
+use Artisanpay\ArtisanpayCharge;
 use Artisanpay\ArtisanPayPayment;
+use Artisanpay\Dto\ChargeRequest;
 use Artisanpay\Dto\Payment;
 use Artisanpay\Exceptions\InvalidTokenException;
 use Illuminate\Support\Str;
@@ -16,12 +18,12 @@ class ArtisanpayChargeTest extends TestCase
     {
        // arrange 
        Http::fake([ 
-            '*' => Http::response(['id' => $id = (string) Str::uuid(), 'message' => "pending"])
+            '*' => Http::response(['id' => $id = (string) Str::uuid(), 'status' => "pending"])
        ]); 
-       $payment =new  Payment('691131446', 5000, 'om');
+       $payment =new  ChargeRequest('691131446', 5000, 'om');
 
        //act
-       $response = (new ArtisanPayPayment)->charge($payment);
+       $response = (new ArtisanpayCharge())->charge($payment);
 
       $this->assertSame($response->getId() , $id);
     }
@@ -32,11 +34,11 @@ class ArtisanpayChargeTest extends TestCase
          // arrange 
         $this->expectException(InvalidTokenException::class);
         Http::fake([ 
-        '*' => Http::response(['id' => $id = (string) Str::uuid(), 'message' => "failed"], 401)
+        '*' => Http::response(['id' => $id = (string) Str::uuid(), 'status' => "failed"], 401)
         ]); 
-        $payment =new  Payment('691131446', 5000, 'om', 'https://google.cm');
+        $payment =new  ChargeRequest('691131446', 5000, 'om', 'https://google.cm');
         //act
-       (new ArtisanPayPayment)->charge($payment);
+       (new ArtisanpayCharge)->charge($payment);
       
        
     }

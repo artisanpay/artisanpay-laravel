@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Config;
 
 class ChargeHookControllerTest extends TestCase
 {
-    /** @test */
     public function handle_payment()
     {
         Config::set('artisanpay.dispatcher', \Artisanpay\Tests\FakeHandleJob::class);
