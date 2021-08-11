@@ -33,7 +33,7 @@ final class ArtisanpayCharge implements ChargeContract
                         ]);
         if($response->successful()){
             $data = $response->json();
-            return new PaymentResponse( Arr::get($data, 'id'), Arr::get($data, 'message') );
+            return new ChargeResponse( Arr::get($data, 'id'), Arr::get($data, 'status') );
         }
         if($response->status() == 401) throw new InvalidTokenException("invalid token", 401); 
         throw new Exception("unkown error", 500);               
