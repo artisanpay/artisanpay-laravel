@@ -51,7 +51,7 @@
                 "Artisanpay\\ArtisanpayServiceProvider"
             ],
             "aliases": {
-                "LaravelPayment": "Artisanpay\\ArtisanpayFacade"
+                "ArtisanPay": "Artisanpay\\Facades\\ArtisanpayFacade"
             }
         }
     }
