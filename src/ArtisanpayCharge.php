@@ -5,8 +5,6 @@ namespace Artisanpay;
 use Artisanpay\Contracts\ChargeContract;
 use Artisanpay\Dto\ChargeRequest;
 use Artisanpay\Dto\ChargeResponse;
-use Artisanpay\Dto\Payment;
-use Artisanpay\Dto\PaymentResponse;
 use Artisanpay\Exceptions\InvalidTokenException;
 use Exception;
 use Illuminate\Support\Arr;
@@ -19,8 +17,8 @@ final class ArtisanpayCharge implements ChargeContract
      * 
      * @throws Exception| InvalidTokenException
      *
-     * @param Payment $chargeRequest
-     * @return PaymentResponse
+     * @param ChargeRequest $chargeRequest
+     * @return ChargeResponse
      */
     public function charge(ChargeRequest $chargeRequest): ChargeResponse
     {

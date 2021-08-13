@@ -1,12 +1,12 @@
 <?php
 
-namespace Artisanpay;
+namespace Artisanpay\Facades;
 
 use Illuminate\Support\Facades\Facade;
 /**
  * 
- * @method static \Artisanpay\Dto\PaymentResponse charge(\Artisanpay\Dto\ChargeRequest $charge)
- * @see \Artisanpay\Artisanpay
+ * @method static \Artisanpay\Dto\ChargeResponse charge(\Artisanpay\Dto\ChargeRequest $charge)
+ * @see \Artisanpay\ArtisanpayCharge
  */
 class ArtisanPay extends Facade
 {

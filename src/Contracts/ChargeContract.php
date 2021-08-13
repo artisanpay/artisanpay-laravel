@@ -12,7 +12,7 @@ interface ChargeContract{
      * 
      * @throws InvalidTokenException
      * @param  ChargeRequest $chargeRequest
-     * @return PaymentResponse
+     * @return ChargeResponse
      */
     public function charge(ChargeRequest $chargeRequest) : ChargeResponse;
 }
