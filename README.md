@@ -55,6 +55,13 @@ return [
 
     'dispatcher' => \App\Jobs\ArtisanpayHookChargeJob::class,  // ArtisanWebookHandler::class , 
 
+    /**
+     * ----------------------------------------------
+     * URL route to handle payment
+     * ----------------------------------------------
+     * 
+     */
+
     'url_webhook'   => env('ARTISANPAY_WEBHOOK', 'artisanpay/hooks')
 ];
 
