@@ -21,35 +21,11 @@ Install package
 php artisan artisanpay:install 
 ```
 
-Add artisanpay api token in config file 
+Add artisanpay api token in config file  in .env 
 
-```php
-<?php
-
-
-
-
-return [
-    /**
-     * -------------------------------------------
-     *  Api Token provide buy ArtisanPay
-     * -------------------------------------------
-     */
-    'token' => env('ARTISANPAY_TOKEN'),
-
-    'base_url' => env('ARTISANPAY_BASE_URL', 'https://app.artisanpay.com/api/v1'),
-
-    /**
-     * --------------------------------------------
-     * A Job to Handler Hook Payment
-     * ---------------------------------------------
-     */
-
-    'dispatcher' => '' // 
-];
-
+```bash
+ARTISANPAY_TOKEN=xxxxxxxxxxxxxxxxxx
 ```
-
 Generate Job to handle payment
 
 ```bash
@@ -58,10 +34,8 @@ php artisan make:job ArtisanpayHookHandleJob
 Add Job to config file in dispatcher section 
 
 ```php
+
 <?php
-
-
-
 
 return [
     /**
@@ -79,14 +53,20 @@ return [
      * ---------------------------------------------
      */
 
-    'dispatcher' => \App\Jobs\ArtisanpayHookChargeJob::class
+    'dispatcher' => \App\Jobs\ArtisanpayHookChargeJob::class,  // ArtisanWebookHandler::class , 
+
+    'url_webhook'   => env('ARTISANPAY_WEBHOOK', 'artisanpay/hooks')
 ];
+
 
 ```
 
 ## Usage
 
-Create payment
+Create payment artisanpay support for this version 2 operator
+
+OrangeMoney ==> 'om'
+MTN Mobile Money => 'momo'
 
 
 ```php
@@ -101,6 +81,8 @@ $data = $request->validate([
         }catch(Exception $exception){
 
         }
+
+    
 ```
 
 Job To handle payment hook
