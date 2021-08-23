@@ -77,7 +77,8 @@ $data = $request->validate([
         ]);
 
         try{
-            $response = Artisanpay::charge( (new ChargeRequest($request->phone, $request->amount, $request->operator)) );
+            $response = Artisanpay::charge( (new ChargeRequest($request->phone, 
+                                        $request->amount, $request->operator)) );
         }catch(Exception $exception){
 
         }
