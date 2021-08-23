@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Http;
 
 final class ArtisanpayCharge implements ChargeContract
 {
+
+    private bool  $hasException;
+
+    public function __construct(){
+        $this->hasException = false;
+    }
+
+
     /**
      * Undocumented function
      * 
@@ -31,9 +39,27 @@ final class ArtisanpayCharge implements ChargeContract
                         ]);
         if($response->successful()){
             $data = $response->json();
-            return new ChargeResponse( Arr::get($data, 'id'), Arr::get($data, 'status') );
+            return new ChargeResponse( Arr::get($data, 'id'), Arr::get($data, 'status'), true );
         }
-        if($response->status() == 401) throw new InvalidTokenException("invalid token", 401); 
-        throw new Exception("unkown error", 500);               
+        if($response->status() == 401) {
+            if($this->hasException)
+                throw new InvalidTokenException("invalid token", 401); 
+            else{
+                return new ChargeResponse(null, "invalid token", false);
+            }    
+        }else{
+            if($this->hasException)
+                throw new Exception("unkown error", 500);        
+            else{
+                return new ChargeResponse(null, "unkown error", false);
+            }  
+        }
+              
+    }
+
+    public function withException()
+    {
+        $this->hasException = true;
+        return $this;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Artisanpay\Dto;
 
+use InvalidArgumentException;
+
 final class ChargeRequest{
 
     /** @var string */
@@ -11,14 +13,26 @@ final class ChargeRequest{
     /** @var string */
     private string  $operator;
     /** @var  string */
-    private string $notifyUrl;
+    private  $notifyUrl;
+   
 
-    public function __construct(string $phone, int $amount, string $operator)
+    public function __construct(string $phone, int $amount, string $operator, ?string $notifyUrl = null )
     {
         $this->phone = $phone;
         $this->amount = $amount;
         $this->operator = $operator;
-        $this->notifyUrl = url('artisanpay/hooks');
+        if((bool) config('artisanpay.process_manually') === true &&  $notifyUrl === null){
+            throw new InvalidArgumentException("missing notifyUrl");
+        }else{
+            if( $notifyUrl === null){
+                $this->notifyUrl = url( config('artisanpay.url_webhook') );
+            }else{
+                $this->notifyUrl = $notifyUrl;
+            }
+        }
+        
+
+        
     }
 
     /**

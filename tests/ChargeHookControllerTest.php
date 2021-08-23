@@ -5,9 +5,7 @@ use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase;
 use Artisanpay\Tests\FakeHandleJob;
 use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Config;
-use Artisanpay\Controllers\ChargeHookController;
 
 use function Composer\Autoload\includeFile;
 
@@ -18,7 +16,7 @@ class ChargeHookControllerTest extends TestCase
     {
         Config::set('artisanpay.url_webhook', 'artisanpay/hooks');
         includeFile('routes.php');
-        Config::set('artisanpay.dispatcher', \Artisanpay\Tests\FakeHandleJob::class);
+        Config::set('artisanpay.job', \Artisanpay\Tests\FakeHandleJob::class);
       
         
         Bus::fake();
@@ -30,7 +28,5 @@ class ChargeHookControllerTest extends TestCase
         // assert
         $response->assertSuccessful();
         Bus::assertDispatched(FakeHandleJob::class);
-
-
     }
 }
