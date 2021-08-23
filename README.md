@@ -53,7 +53,7 @@ return [
      * ---------------------------------------------
      */
 
-    'dispatcher' => \App\Jobs\ArtisanpayHookChargeJob::class,  // ArtisanWebookHandler::class , 
+    'job' => \App\Jobs\ArtisanpayHookChargeJob::class,  // ArtisanWebookHandler::class , 
 
     'url_webhook'   => env('ARTISANPAY_WEBHOOK', 'artisanpay/hooks')
 ];
