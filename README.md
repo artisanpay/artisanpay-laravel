@@ -55,7 +55,8 @@ return [
 
     'job' => \App\Jobs\ArtisanpayHookChargeJob::class,  // ArtisanWebookHandler::class , 
 
-    'url_webhook'   => env('ARTISANPAY_WEBHOOK', 'artisanpay/hooks')
+    'url_webhook'   => env('ARTISANPAY_WEBHOOK', 'artisanpay/hooks'),
+    'process_manuelly'  => false // indicate if you to define your own controller and route
 ];
 
 
