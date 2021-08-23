@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Artisanpay\Controllers\ChargeHookController;
 
-Route::post(config('artisanpay.url_webhook'), ChargeHookController::class);
+if( (boolean) config('artisanpay.process_manually') === false){
+    Route::post(config('artisanpay.url_webhook'), \Artisanpay\Controllers\ChargeHookController::class);
+}

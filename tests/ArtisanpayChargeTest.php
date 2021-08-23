@@ -1,21 +1,23 @@
 <?php
 namespace Artisanpay\Tests;
 
-use Artisanpay\ArtisanpayCharge;
-use Artisanpay\ArtisanPayPayment;
-use Artisanpay\Dto\ChargeRequest;
-use Artisanpay\Dto\Payment;
-use Artisanpay\Exceptions\InvalidTokenException;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
+use Artisanpay\ArtisanpayCharge;
+use Artisanpay\Dto\ChargeRequest;
 use Orchestra\Testbench\TestCase;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Config;
+use Artisanpay\Exceptions\InvalidTokenException;
 
 
 class ArtisanpayChargeTest extends TestCase
 {
     /** @test */
-    public function create_payment_ok()
+    public function create_payment_ok_with_handle_route_define_in_config()
     {
+
+       Config::set('artisanpay.process_manually', false);   
        // arrange 
        Http::fake([ 
             '*' => Http::response(['id' => $id = (string) Str::uuid(), 'status' => "pending"])
@@ -29,6 +31,33 @@ class ArtisanpayChargeTest extends TestCase
     }
 
     /** @test */
+    public function create_payment_failed_if_process_manuelly_is_false_and_not_pass_url()
+    {
+           $this->expectException(InvalidArgumentException::class);
+          Config::set('artisanpay.process_manually', true);   
+         
+          // arrange 
+          Http::fake([ 
+               '*' => Http::response(['id' => $id = (string) Str::uuid(), 'status' => "pending"])
+          ]); 
+          $chargeRequest =new  ChargeRequest('691131446', 5000, 'om');
+          //act
+    }
+    /** @test */
+    public function charge_failed_without_exception()
+    {
+     Config::set('artisanpay.process_manually', true);   
+     Http::fake([ 
+          '*' => Http::response(['id' => $id = (string) Str::uuid(), 'status' => "failed"], 401)
+          ]); 
+          $chargeRequest =new  ChargeRequest('691131446', 5000, 'om', 'https://google.cm');
+
+          $response = (new ArtisanpayCharge())->charge($chargeRequest);
+
+          $this->assertSame(false, $response->successful());
+    }
+
+    /** @test */
     public function create_payment_invalid_token()
     {
          // arrange 
@@ -38,7 +67,7 @@ class ArtisanpayChargeTest extends TestCase
         ]); 
         $payment =new  ChargeRequest('691131446', 5000, 'om', 'https://google.cm');
         //act
-       (new ArtisanpayCharge)->charge($payment);
+       (new ArtisanpayCharge)->withException()->charge($payment);
       
        
     }

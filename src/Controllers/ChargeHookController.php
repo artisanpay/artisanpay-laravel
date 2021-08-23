@@ -14,7 +14,7 @@ class ChargeHookController extends Controller
             'status' => 'required',
             'operator_message' => 'required'
         ]);
-        $job = config('artisanpay.dispatcher');
+        $job = config('artisanpay.job');
         $data = new ChargeHookResponse($request->status, $request->operator_message, $request->id);
         dispatch( new $job( $data ));
     }

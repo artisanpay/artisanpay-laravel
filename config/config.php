@@ -16,7 +16,8 @@ return [
      * ---------------------------------------------
      */
 
-    'dispatcher' => '',  // ArtisanWebookHandler::class , 
+    'job' => '',  // ArtisanWebookHandler::class , 
 
-    'url_webhook'   => env('ARTISANPAY_WEBHOOK', 'artisanpay/hooks')
+    'url_webhook'       => env('ARTISANPAY_WEBHOOK', 'artisanpay/hooks'),
+    'process_manuelly'  => false
 ];

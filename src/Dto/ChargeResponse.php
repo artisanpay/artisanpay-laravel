@@ -3,14 +3,16 @@ namespace Artisanpay\Dto;
 
 final class ChargeResponse
 {
-    private  string $id;
+    private  ?string $id;
     private string $message;
+    private bool $isSucces;
     
 
-    public function __construct(string $id, string $message)
+    public function __construct(?string $id, string $message, bool $isSucces)
     {
         $this->id = $id;
         $this->message = $message;
+        $this->isSucces = $isSucces;
     }
 
     /**
@@ -27,5 +29,10 @@ final class ChargeResponse
     public function getMessage()
     {
         return $this->message;
+    }
+
+    public function successful() : bool
+    {
+        return $this->isSucces;
     }
 }
