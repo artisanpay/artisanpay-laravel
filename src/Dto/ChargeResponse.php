@@ -35,4 +35,6 @@ final class ChargeResponse
     {
         return $this->isSucces;
     }
+
+    
 }

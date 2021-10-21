@@ -14,18 +14,28 @@ final class ChargeRequest{
     private string  $operator;
     /** @var  string */
     private  $notifyUrl;
+    /** @var int|string */
+    private $id;
    
 
-    public function __construct(string $phone, int $amount, string $operator, ?string $notifyUrl = null )
+    public function __construct(string $phone, int $amount, string $operator, ?string $id = null,  ?string $notifyUrl = null )
     {
         $this->phone = $phone;
         $this->amount = $amount;
         $this->operator = $operator;
+        $this->id = $id;
+
+
         if((bool) config('artisanpay.process_manually') === true &&  $notifyUrl === null){
             throw new InvalidArgumentException("missing notifyUrl");
         }else{
             if( $notifyUrl === null){
-                $this->notifyUrl = url( config('artisanpay.url_webhook') );
+                if($id !== null){
+                    $this->notifyUrl =config('app.url').'/'.config('artisanpay.url_webhook').'/'.$this->id;
+                }else{
+                    $this->notifyUrl =config('app.url').'/'.config('artisanpay.url_webhook');
+                }
+                
             }else{
                 $this->notifyUrl = $notifyUrl;
             }
