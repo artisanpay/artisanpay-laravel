@@ -7,7 +7,7 @@ use Artisanpay\Dto\ChargeHookResponse;
 
 class ChargeHookController extends Controller
 {
-    public function __invoke(Request $request, ?string $id)
+    public function __invoke(Request $request, ?string $id=null)
     {
         $request->validate([
             'id'                => 'required',

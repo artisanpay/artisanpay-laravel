@@ -50,7 +50,7 @@ class ArtisanpayChargeTest extends TestCase
      Http::fake([ 
           '*' => Http::response(['id' => $id = (string) Str::uuid(), 'status' => "failed"], 401)
           ]); 
-          $chargeRequest =new  ChargeRequest('691131446', 5000, 'om', 'https://google.cm');
+          $chargeRequest =new  ChargeRequest('691131446', 5000, 'om','', 'https://google.cm');
 
           $response = (new ArtisanpayCharge())->charge($chargeRequest);
 
