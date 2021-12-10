@@ -53,8 +53,9 @@ return [
      * ---------------------------------------------
      */
 
-    'dispatcher' => \App\Jobs\ArtisanpayHookChargeJob::class,  // ArtisanWebookHandler::class , 
+    'job' => \App\Jobs\ArtisanpayHookChargeJob::class,  // ArtisanWebookHandler::class , 
 
+<<<<<<< HEAD
     /**
      * ----------------------------------------------
      * URL route to handle payment
@@ -63,6 +64,10 @@ return [
      */
 
     'url_webhook'   => env('ARTISANPAY_WEBHOOK', 'artisanpay/hooks')
+=======
+    'url_webhook'   => env('ARTISANPAY_WEBHOOK', 'artisanpay/hooks'),
+    'process_manuelly'  => false // indicate if you to define your own controller and route
+>>>>>>> faaa6896216295a3aa1837fb7fa86f81bb327728
 ];
 
 
@@ -84,7 +89,8 @@ $data = $request->validate([
         ]);
 
         try{
-            $response = Artisanpay::charge( (new ChargeRequest($request->phone, $request->amount, $request->operator)) );
+            $response = Artisanpay::charge( (new ChargeRequest($request->phone, 
+                                        $request->amount, $request->operator)) );
         }catch(Exception $exception){
 
         }

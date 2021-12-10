@@ -51,7 +51,7 @@
                 "Artisanpay\\ArtisanpayServiceProvider"
             ],
             "aliases": {
-                "ArtisanPay": "Artisanpay\\Facades\\ArtisanpayFacade"
+                "ArtisanPay": "Artisanpay\\Facades\\Artisanpay"
             }
         }
     }

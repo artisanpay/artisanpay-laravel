@@ -5,14 +5,17 @@ namespace Artisanpay\Dto;
 
 final class ChargeHookResponse{
     private string $status;
-    private string $operatorMessage;
+    private ?string $operatorMessage;
     private string $id;
+    /** @var string */
+    private $refId;
 
-    public function __construct(string $status, string $operatorMessage, string $id)
+    public function __construct(string $status, ?string $operatorMessage, string $id , ?string $refId = null)
     {
         $this->id = $id;
         $this->operatorMessage = $operatorMessage;
         $this->status = $status;
+        $this->refId = $refId;
     }
 
     /**
@@ -37,5 +40,14 @@ final class ChargeHookResponse{
     public function getId()
     {
         return $this->id;
+    }
+    /**
+     * Get Reference Id
+     *
+     * @return string 
+     */
+    public function getRefId()
+    {
+        return $this->refId;
     }
 }
