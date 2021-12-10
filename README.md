@@ -112,14 +112,16 @@ class ArtisanpayHookChargeJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private ChargeHookResponse $chargeHookResponse
+
     /**
      * Create a new job instance.
      * @param  ChargeHookResponse $name
      * @return void
      */
-    public function __construct(private ChargeHookResponse $chargeHookResponse)
+    public function __construct(ChargeHookResponse $chargeHookResponse)
     {
-        //
+        $this->chargeHookResponse = $chargeHookResponse;
     }
 
     /**
@@ -129,20 +131,22 @@ class ArtisanpayHookChargeJob implements ShouldQueue
      */
     public function handle()
     {
-       match($this->chargeHookResponse->getStatus()){
-            'success'   => $this->proccessSuccess(),
-            'failed'    => $this->proccessFailed(),
-       };
+      if($this->chargeHookResponse->getStatus() === 'success'){
+         $this->proccessSuccess();
+      }else{
+          $this->proccessFailed();
+      }  
+    
     }
 
     private function proccessSuccess()
     {
-
+        // make operation in case success
     }
 
     private function proccessFailed()
     {
-
+        // make operation in case failed
     }
 }
 ```
@@ -168,7 +172,7 @@ If you discover any security related issues, please email artisanpay@gmail.com i
 
 ## Credits
 
--   [Gildas Tema](https://github.com/artisanpay)
+-   [Gildas Tema](https://github.com/gildastema)
 -   [All Contributors](../../contributors)
 
 ## License
