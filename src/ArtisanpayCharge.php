@@ -16,7 +16,7 @@ final class ArtisanpayCharge implements ChargeContract
     private bool  $hasException;
 
     public function __construct(){
-        $this->hasException = false;
+        $this->hasException = true;
     }
 
 
@@ -60,6 +60,12 @@ final class ArtisanpayCharge implements ChargeContract
     public function withException()
     {
         $this->hasException = true;
+        return $this;
+    }
+
+    public function withoutException()
+    {
+        $this->hasException = false;
         return $this;
     }
 }

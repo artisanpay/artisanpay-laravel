@@ -85,7 +85,7 @@ $data = $request->validate([
         ]);
 
         try{
-            $response = ArtisanPay::charge( (new ChargeRequest($request->phone, 
+            $chargeResponse = ArtisanPay::charge( (new ChargeRequest($request->phone, 
                                             $request->amount, $request->operator , 
                                             "my-internal-id")) );
         }catch(Exception $exception){
@@ -94,6 +94,16 @@ $data = $request->validate([
 
     
 ```
+
+without Exception
+
+```php
+
+    $chargeResponse =  ArtisanPay::withoutException()->charge(ChargeRequest("691131446", 500, "om", "my-internal-id"));
+
+
+```
+
 
 Job To handle payment hook
 

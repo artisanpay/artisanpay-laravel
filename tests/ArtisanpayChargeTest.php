@@ -52,7 +52,7 @@ class ArtisanpayChargeTest extends TestCase
           ]); 
           $chargeRequest =new  ChargeRequest('691131446', 5000, 'om','', 'https://google.cm');
 
-          $response = (new ArtisanpayCharge())->charge($chargeRequest);
+          $response = (new ArtisanpayCharge())->withoutException()->charge($chargeRequest);
 
           $this->assertSame(false, $response->successful());
     }
