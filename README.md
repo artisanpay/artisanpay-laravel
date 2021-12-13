@@ -86,7 +86,7 @@ $data = $request->validate([
 
         try{
             $response = ArtisanPay::charge( (new ChargeRequest($request->phone, 
-                                        $request->amount, $request->operator)) );
+                                        $request->amount, $request->operator , "my-internal-id")) );
         }catch(Exception $exception){
 
         }
@@ -131,6 +131,11 @@ class ArtisanpayHookChargeJob implements ShouldQueue
      */
     public function handle()
     {
+        $myInternalId = $this->getRefId();
+        $artisanPayId = $this->getId();
+        $amount = $this->getAmount();
+        $amountCharge = $this->getAmountCharge();
+        // etc ...
       if($this->chargeHookResponse->getStatus() === 'success'){
          $this->proccessSuccess();
       }else{
@@ -141,6 +146,7 @@ class ArtisanpayHookChargeJob implements ShouldQueue
 
     private function proccessSuccess()
     {
+       
         // make operation in case success
     }
 
