@@ -51,6 +51,5 @@ class ChargeHookControllerTest extends TestCase
         // assert
         $response->assertStatus(500);
         $this->assertEquals(get_class($response->exception) , HookJobNotFoundException::class);
-        // dd($response->exception);
     }
 }
