@@ -1,6 +1,7 @@
 <?php
 namespace Artisanpay\Tests;
 
+use Artisanpay\Exceptions\HookJobNotFoundException;
 use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase;
 use Artisanpay\Tests\FakeHandleJob;
@@ -28,5 +29,24 @@ class ChargeHookControllerTest extends TestCase
         // assert
         $response->assertSuccessful();
         Bus::assertDispatched(FakeHandleJob::class);
+    }
+
+    /** @test */
+    public function charge_failed_when_handle_not_found()
+    {
+        Config::set('artisanpay.url_webhook', 'api/artisanpay/hooks');
+        includeFile('routes.php');
+        Config::set('artisanpay.job', 'hello');
+      
+        
+        Bus::fake();
+        $response =  $this->postJson('api/artisanpay/hooks', [
+            'id'    => $id = (string) Str::uuid(),
+            'status'    => 'success',
+            'operator_message' => 'payment ok'
+        ]);
+        // assert
+        $response->assertStatus(500);
+        $this->expectException(HookJobNotFoundException::class);
     }
 }
