@@ -13,13 +13,13 @@ class ChargeHookController extends Controller
         $request->validate([
             'id'                => 'required',
             'status'            => 'required',
-            'operator_message'  => 'nullable'
         ]);
         $job = config('artisanpay.job');
         if(!class_exists($job, true)){
             throw new HookJobNotFoundException("Hook Job not found");
         }
-        $data = new ChargeHookResponse($request->status, $request->message, $request->id, $id);
+        $data = new ChargeHookResponse($request->only(['id', 'status', 'message', 'amount','amount_balance', 
+                                            'amount_charge', 'commission', 'type', 'operator', 'created_at']), $id);
         dispatch( new $job( $data ));
     }
 }

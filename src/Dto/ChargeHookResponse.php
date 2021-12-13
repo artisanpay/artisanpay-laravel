@@ -1,45 +1,37 @@
 <?php
 namespace Artisanpay\Dto;
 
-
-
+use BadMethodCallException;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+/**
+ * @method ChargeHookResponse getId 
+ * @method ChargeHookResponse getAmountBalance()
+ * @method ChargeHookResponse getAmountCharge()
+ * @method ChargeHookResponse getCommission()
+ * @method ChargeHookResponse getCreatedAt()
+ * @method ChargeHookResponse getStatus()
+ * @method ChargeHookResponse getAmount()
+ * @method ChargeHookResponse getMessage()
+ * @method ChargeHookResponse getType()
+ * @method ChargeHookResponse getOperator()
+ * 
+ */
 final class ChargeHookResponse{
-    private string $status;
-    private ?string $operatorMessage;
-    private string $id;
+    
     /** @var string */
-    private $refId;
+    public  $refId;
+    /** @array<string, strring> */
+    private array $data;
 
-    public function __construct(string $status, ?string $operatorMessage, string $id , ?string $refId = null)
+    public function __construct(array $data,  ?string $refId = null)
     {
-        $this->id = $id;
-        $this->operatorMessage = $operatorMessage;
-        $this->status = $status;
         $this->refId = $refId;
+        $this->data = $data;
     }
 
-    /**
-     * Get the value of status
-     */ 
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Get the value of operatorMessage
-     */ 
-    public function getOperatorMessage()
-    {
-        return $this->operatorMessage;
-    }
-
-    /**
-     * Get the value of id
-     */ 
-    public function getId()
-    {
-        return $this->id;
+    private function getElement(string $key){
+        return Arr::get($this->data, $key);
     }
     /**
      * Get Reference Id
@@ -49,5 +41,20 @@ final class ChargeHookResponse{
     public function getRefId()
     {
         return $this->refId;
+    }
+
+    public function __get($key)
+    {
+       return $this->getElement($key);
+    }
+
+    public function __call($name, $arguments)
+    {
+        $name = Str::of($name)->replaceFirst('get', '', $name)->snake()->lower()-> __toString();
+        if(in_array($name, array_keys($this->data) )){
+           return $this->getElement($name);
+        }else{
+            throw new BadMethodCallException();
+        }
     }
 }
