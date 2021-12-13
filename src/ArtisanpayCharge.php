@@ -30,7 +30,7 @@ final class ArtisanpayCharge implements ChargeContract
      */
     public function charge(ChargeRequest $chargeRequest): ChargeResponse
     {
-        $response = Http::withToken( config('artisanpay.token') )->asJson()
+        $response = Http::acceptJson()->withToken( config('artisanpay.token') )->asJson()
                         ->post(config('artisanpay.base_url') .'/payments', [
                             'phone'         => $chargeRequest->getPhone(),
                             'amount'        => $chargeRequest->getAmount(),
