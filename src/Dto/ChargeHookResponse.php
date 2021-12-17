@@ -5,7 +5,7 @@ use BadMethodCallException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 /**
- * @method ChargeHookResponse getId 
+ * @method ChargeHookResponse getId() 
  * @method ChargeHookResponse getAmountBalance()
  * @method ChargeHookResponse getAmountCharge()
  * @method ChargeHookResponse getCommission()
