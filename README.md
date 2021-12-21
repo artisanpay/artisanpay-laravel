@@ -73,16 +73,19 @@ return [
 
 Create payment artisanpay support for this version 2 operator
 
+NB: Phone without prefix ( 691131446)
 OrangeMoney ==> 'om'
 MTN Mobile Money => 'momo'
 
 
 ```php
 $data = $request->validate([
-            'phone'     => 'required',
+            'phone'     => 'required', // 6911131446, 651881356
             'amount'    => 'required',
             'operator'  => 'required'
         ]);
+
+        // for operator you can use const class Operator 
 
         try{
             $chargeResponse = ArtisanPay::charge( (new ChargeRequest($request->phone, 
@@ -99,7 +102,7 @@ without Exception
 
 ```php
 
-    $chargeResponse =  ArtisanPay::withoutException()->charge(ChargeRequest("691131446", 500, "om", "my-internal-id"));
+    $chargeResponse =  ArtisanPay::withoutException()->charge(ChargeRequest("691131446", 500, Operator::OM, "my-internal-id"));
 
 
 ```
@@ -147,7 +150,7 @@ class ArtisanpayHookChargeJob implements ShouldQueue
         $amount = $this->getAmount();
         $amountCharge = $this->getAmountCharge();
         // etc ...
-      if($this->chargeHookResponse->getStatus() === 'success'){
+      if($this->chargeHookResponse->getStatus() === ChargeStatus::SUCCESS){
          $this->proccessSuccess();
       }else{
           $this->proccessFailed();

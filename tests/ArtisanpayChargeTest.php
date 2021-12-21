@@ -4,6 +4,7 @@ namespace Artisanpay\Tests;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Artisanpay\ArtisanpayCharge;
+use Artisanpay\Constants\Operator;
 use Artisanpay\Dto\ChargeRequest;
 use Orchestra\Testbench\TestCase;
 use Illuminate\Support\Facades\Http;
@@ -50,7 +51,7 @@ class ArtisanpayChargeTest extends TestCase
      Http::fake([ 
           '*' => Http::response(['id' => $id = (string) Str::uuid(), 'status' => "failed"], 401)
           ]); 
-          $chargeRequest =new  ChargeRequest('691131446', 5000, 'om','', 'https://google.cm');
+          $chargeRequest =new  ChargeRequest('691131446', 5000, Operator::OM,'', 'https://google.cm');
 
           $response = (new ArtisanpayCharge())->withoutException()->charge($chargeRequest);
 
