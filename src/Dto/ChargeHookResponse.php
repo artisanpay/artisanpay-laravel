@@ -5,16 +5,16 @@ use BadMethodCallException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 /**
- * @method ChargeHookResponse getId() 
- * @method ChargeHookResponse getAmountBalance()
- * @method ChargeHookResponse getAmountCharge()
- * @method ChargeHookResponse getCommission()
- * @method ChargeHookResponse getCreatedAt()
- * @method ChargeHookResponse getStatus()
- * @method ChargeHookResponse getAmount()
- * @method ChargeHookResponse getMessage()
- * @method ChargeHookResponse getType()
- * @method ChargeHookResponse getOperator()
+ * @method string getId() 
+ * @method float getAmountBalance()
+ * @method float getAmountCharge()
+ * @method float getCommission()
+ * @method string getCreatedAt()
+ * @method string getStatus()
+ * @method float getAmount()
+ * @method string getMessage()
+ * @method string getType()
+ * @method string getOperator()
  * 
  */
 final class ChargeHookResponse{
