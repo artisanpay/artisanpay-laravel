@@ -4,8 +4,6 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/artisanpay/artisanpay-laravel.svg?style=flat-square)](https://packagist.org/packages/artisanpay/artisanpay-laravel)
 ![GitHub Actions](https://github.com/artisanpay/artisanpay-laravel/actions/workflows/main.yml/badge.svg)
 
-:warning:
-This package still in development not use in production 
 
 ## Installation
 
