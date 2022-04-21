@@ -10,7 +10,7 @@ use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
-final class ArtisanpayCharge implements ChargeContract
+class ArtisanpayCharge implements ChargeContract
 {
 
     private bool  $hasException;
